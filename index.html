@@ -9,13 +9,23 @@
 <body>
 	<div class="container">
 		<h2>D3 Graphic</h2>
-		<section id="chart">
-			<div class="item">LKldfsjflksdjf</div>
-			<div class="item">Kkjdkljksldfj</div>
-			<div class="item">Kkajdlks skd lks</div>
-			<div class="item">Lsdalsk d;as</div>
-			<div class="item">Kal;skd ;las</div>
-		</section>
+		<svg width="600" height="400" style="background: #CCC">
+			<circle cx="300" cy="200" r="100"
+				style="fill: #DDD"/>
+			<rect x="250", y="150" width="100" height="100"
+				style="fill: #fff"/>
+			<text
+				x="10" y="390" fill="white">SVG Graphics</text>
+			<g id="triangle">
+				<polyline points="10 35, 30 10, 50,35" fill="#FFF"/>
+				<polyline points="10 35, 55 10, 75,35" fill="#FFF"/>
+			</g>
+			<use xlink:href="#triangle" x ="55" y="0"/>
+			<use xlink:href="#triangle" x ="105" y="0"/>
+			<use xlink:href="#triangle" x ="155" y="0"/>
+			<use xlink:href="#triangle" x ="195" y="0"/>
+			<use xlink:href="#triangle" x ="245" y="0"/>
+		</svg>
 	</div>
 	<script src="js/d3.js"></script>
 	<script src="js/main.js"></script>
