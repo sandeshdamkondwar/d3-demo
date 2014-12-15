@@ -1,9 +1,13 @@
-var barData = [20, 30, 50, 10, 20, 30, 40, 90, 300];
+var barData = [10, 20, 30, 40, 10, 20, 30, 40, 50];
 
 var height =400,
 	width = 600,
 	barWidth = 50,
 	barOffset = 10;
+
+var yScale = d3.scale.linear()
+			   .domain([0, d3.max(barData)])
+			   .range([0, height]);
 
 d3.select("#chart").append('svg')
 	.attr({
@@ -17,12 +21,12 @@ d3.select("#chart").append('svg')
 		.attr({
 			width: barWidth,
 			height: function (data) {
-				return data;
+				return yScale(data);
 			},
 			x: function (data, index) {
 				return barWidth * index + (barOffset * index + 10);
 			},
 			y: function (data) {
-				return (height- 10) - data;
+				return height - yScale(data);
 			}
 		});
