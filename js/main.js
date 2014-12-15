@@ -1,13 +1,15 @@
-var barData = [10, 20, 30, 40, 10, 20, 30, 40, 50];
+var barData = [10, 20, 30, 40, 10, 20, 30, 40, 50,10, 20, 30, 40, 10, 20, 30, 40, 50,10, 20, 30, 40, 10, 20, 30, 40, 50];
 
 var height =400,
-	width = 600,
-	barWidth = 50,
-	barOffset = 10;
+	width = 600;
 
 var yScale = d3.scale.linear()
 			   .domain([0, d3.max(barData)])
 			   .range([0, height]);
+
+var xScale = d3.scale.ordinal()
+	.domain(d3.range(barData.length))
+	.rangeBands([0, width]);
 
 d3.select("#chart").append('svg')
 	.attr({
@@ -19,12 +21,12 @@ d3.select("#chart").append('svg')
 	.enter().append('rect')
 		.style({fill: "#C61C6f"})
 		.attr({
-			width: barWidth,
+			width: xScale.rangeBand(),
 			height: function (data) {
 				return yScale(data);
 			},
 			x: function (data, index) {
-				return barWidth * index + (barOffset * index + 10);
+				return xScale(index);
 			},
 			y: function (data) {
 				return height - yScale(data);
