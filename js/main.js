@@ -1,9 +1,9 @@
 var barData = [];
 
-for (var i = 100; i >= 0; i--) {
+for (var i = 50; i >= 0; i--) {
 	barData.push(Math.random() * 100);
 }
-console.profile('perfCheck');
+
 var height =400,
 	width = 600;
 
@@ -19,7 +19,7 @@ var colors = d3.scale.linear()
 			   .domain([0, barData.length * 0.33, barData.length * 0.66, barData.length])
 			   .range(["#b58929", "#c61c6f", "#268bd2", "#85992c"]);
 
-d3.select("#chart").append('svg')
+var chart = d3.select("#chart").append('svg')
 	.attr({
 		width: width,
 		height: height
@@ -32,24 +32,33 @@ d3.select("#chart").append('svg')
 		}})
 		.attr({
 			width: xScale.rangeBand(),
-			height: function (data) {
-				return yScale(data);
-			},
 			x: function (data, index) {
 				return xScale(index);
 			},
-			y: function (data) {
-				return height - yScale(data);
-			}
+			height: 0,
+			y: height
 		})
 	.on('mouseover', function(data) {
 		d3.select(this)
-			.style('opacity', '0.5');
-		console.log(parseInt(data));
+			.transition()
+			.style('opacity', '0.8');
+		d3.select("#dataValue").html(data);
 	})
 	.on('mouseleave', function(data) {
 		d3.select(this)
+		.transition().delay(500).duration(1000)
 			.style('opacity', '1');
-		d3.select("#dataValue").html(data);
 	});
-console.profileEnd('perfCheck');
+
+chart.transition()
+	.attr('height', function (data) {
+		return yScale(data);
+	})
+	.attr('y', function (data) {
+		return height - yScale(data);
+	})
+	.delay(function (d, i) {
+		return i * 10;
+	})
+	.duration(800)
+	.ease('elastic');
