@@ -1,7 +1,7 @@
 var barData = [];
 
-for (var i = 1000; i >= 0; i--) {
-	barData.push(Math.random() * 30);
+for (var i = 100; i >= 0; i--) {
+	barData.push(Math.random() * 100);
 }
 console.profile('perfCheck');
 var height =400,
@@ -41,5 +41,15 @@ d3.select("#chart").append('svg')
 			y: function (data) {
 				return height - yScale(data);
 			}
-		});
+		})
+	.on('mouseover', function(data) {
+		d3.select(this)
+			.style('opacity', '0.5');
+		console.log(parseInt(data));
+	})
+	.on('mouseleave', function(data) {
+		d3.select(this)
+			.style('opacity', '1');
+		d3.select("#dataValue").html(data);
+	});
 console.profileEnd('perfCheck');

@@ -1,0 +1,7 @@
+.container {
+	text-align: center;
+}
+
+rect {
+	transition: .1s all;
+}
